@@ -3,31 +3,31 @@
     "permalink": "preface/introduction",
     "title": "Introduction",
     "contentPath": "./preface/introduction.md",
-    "category": "Preface"
+    "category": "Préface"
   },
   {
     "permalink": "preface/faqs",
-    "title": "FAQs",
+    "title": "FAQ",
     "contentPath": "./preface/faqs.md",
-    "category": "Preface"
+    "category": "Préface"
   },
   {
     "permalink": "preface/governance",
-    "title": "Governance",
+    "title": "Gouvernance",
     "contentPath": "./preface/governance.md",
-    "category": "Preface"
+    "category": "Préface"
   },
   {
     "permalink": "preface/releases",
-    "title": "Releases",
+    "title": "Versions",
     "contentPath": "./preface/releases.md",
-    "category": "Preface"
+    "category": "Préface"
   },
   {
     "permalink": "preface/contribution-guide",
-    "title": "Contribution Guide",
+    "title": "Guide de contribution",
     "contentPath": "./preface/contribution_guide.md",
-    "category": "Preface"
+    "category": "Préface"
   },
   {
     "permalink": "getting-started/installation",
