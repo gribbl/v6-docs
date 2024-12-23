@@ -1,24 +1,24 @@
 ---
-summary: Learn how to read and update configuration values in AdonisJS.
+summary: Apprenez à lire et à mettre à jour les valeurs de configuration dans AdonisJS.
 ---
 
 # Configuration
 
-The configuration files of your AdonisJS application are stored inside the `config` directory. A brand new AdonisJS application comes with a handful of pre-existing files used by the framework core and installed packages.
+Les fichiers de configuration de votre application AdonisJS sont stockés dans le répertoire `config`. Une nouvelle application AdonisJS est accompagnée de quelques fichiers préexistants utilisés par le noyau du framework et les packages installés.
 
-Feel free to create additional files your application requires inside the `config` directory.
+N'hésitez pas à créer des fichiers supplémentaires dont votre application a besoin dans le répertoire `config`.
 
 
 :::note
 
-We recommend using [environment variables](./environment_variables.md) for storing secrets and environment-specific configuration.
+Nous vous recommandons d'utiliser les [variables d'environnement](./environment_variables.md) pour stocker les données sensibles et la configuration spécifique à l'environnement.
 
 
 :::
 
-## Importing config files
+## Importation des fichiers de configuration
 
-You may import the configuration files within your application codebase using the standard JavaScript `import` statement. For example:
+Vous pouvez importer les fichiers de configuration dans le code de votre application en utilisant l'instruction `import` standard de JavaScript. Par exemple :
 
 ```ts
 import { appKey } from '#config/app'
@@ -28,31 +28,31 @@ import { appKey } from '#config/app'
 import databaseConfig from '#config/database'
 ```
 
-## Using the config service
+## Utilisation du service de configuration
 
-The config service offers an alternate API for reading the configuration values. In the following example, we use the config service to read the `appKey` value stored within the `config/app.ts` file.
+Le service de configuration propose une API alternative pour lire les valeurs de configuration. Dans l'exemple suivant, nous utilisons le service de configuration pour lire la valeur `appKey` stockée dans le fichier `config/app.ts`.
 
 ```ts
 import config from '@adonisjs/core/services/config'
 
 config.get('app.appKey')
-config.get('app.http.cookie') // read nested values
+config.get('app.http.cookie') // lire les valeurs imbriquées
 ```
 
-The `config.get` method accepts a dot-separated key and parses it as follows.
+La méthode `config.get` accepte une clé séparée par un point et l'analyse de la façon suivante.
 
-- The first part is the filename from which you want to read the values. I.e., `app.ts` file.
-- The rest of the string fragment is the key you want to access from the exported values. I.e., `appKey` in this case.
+- La première partie est le nom du fichier à partir duquel vous souhaitez lire les valeurs. Par exemple, le fichier `app.ts`.
+- Le reste de la chaîne est la clé que vous souhaitez accéder parmi les valeurs exportées. Par exemple, `appKey` dans ce cas.
 
-## Config service vs. directly importing config files
+## Service de configuration vs. importation directe des fichiers de configuration
 
-Using the config service over directly importing the config files has no direct benefits. However, the config service is the only choice to read the configuration in external packages and edge templates.
+Utiliser le service de configuration plutôt que d'importer directement les fichiers de configuration ne présente pas d'avantages directs. Cependant, le service de configuration est le seul choix pour lire la configuration dans les packages externes et les templates Edge.
 
-### Reading config inside external packages
+### Lecture de la configuration à l'intérieur des packages externes
 
-If you are creating a third-party package, you should not directly import the config files from the user application because it will make your package tightly coupled with the folder structure of the host application.
+Si vous créez un package tiers, vous ne devriez pas importer directement les fichiers de configuration depuis l'application utilisateur car cela rendra votre package étroitement lié à la structure de dossiers de l'application hôte.
 
-Instead, you should use the config service to access the config values inside a service provider. For example:
+Au lieu de cela, vous devriez utiliser le service de configuration pour accéder aux valeurs de configuration à l'intérieur d'un fournisseur de service. Par exemple :
 
 ```ts
 import { ApplicationService } from '@adonisjs/core/types'
@@ -71,15 +71,15 @@ export default class DriveServiceProvider {
 }
 ```
 
-### Reading config inside Edge templates
+### Lecture de la configuration à l'intérieur des templates Edge
 
-You may access configuration values inside edge templates using the `config` global method.
+Vous pouvez accéder aux valeurs de configuration à l'intérieur des templates Edge en utilisant la méthode globale `config`.
 
 ```edge
 <a href="{{ config('app.appUrl') }}"> Home </a>
 ```
 
-You can use the `config.has` method to check if a configuration value exists for a given key. The method returns `false` if the value is `undefined`.
+Vous pouvez utiliser la méthode `config.has` pour vérifier si une valeur de configuration existe pour une clé donnée. La méthode renvoie `false` si la valeur est `undefined`.
 
 ```edge
 @if(config.has('app.appUrl'))
@@ -89,9 +89,9 @@ You can use the `config.has` method to check if a configuration value exists for
 @end
 ```
 
-## Changing the config location
+## Modification de l'emplacement de la configuration
 
-You can update the location for the config directory by modifying the `adonisrc.ts` file. After the change, the config files will be imported from the new location.
+Vous pouvez mettre à jour l'emplacement du répertoire de configuration en modifiant le fichier `adonisrc.ts`. Après la modification, les fichiers de configuration seront importés à partir du nouvel emplacement.
 
 ```ts
 directories: {
@@ -99,7 +99,7 @@ directories: {
 }
 ```
 
-Make sure to update the import alias within the `package.json` file.
+Assurez-vous de mettre à jour l'alias d'importation dans le fichier `package.json`.
 
 ```json
 {
@@ -109,21 +109,21 @@ Make sure to update the import alias within the `package.json` file.
 }
 ```
 
-## Config files limitations
+## Limitations des fichiers de configuration
 
-The config files stored within the `config` directory are imported during the boot phase of the application. As a result, the config files cannot rely on the application code.
+Les fichiers de configuration stockés dans le répertoire `config` sont importés pendant la phase de démarrage de l'application. Par conséquent, les fichiers de configuration ne peuvent pas dépendre du code de l'application.
 
-For example, if you try to import and use the router service inside the `config/app.ts` file, the application will fail to start. This is because the router service is not configured until the app is in a `booted` state.
+Par exemple, si vous essayez d'importer et d'utiliser le service de routage à l'intérieur du fichier `config/app.ts`, l'application échouera au démarrage. Cela est dû au fait que le service de routage n'est pas configuré tant que l'application n'est pas dans un état `booted`.
 
-Fundamentally, this limitation positively impacts your codebase because the application code should rely on the config, not vice versa.
+Fondamentalement, cette limitation impacte positivement votre code car le code de l'application devrait dépendre de la configuration, et non l'inverse.
 
-## Updating config at runtime
+## Mise à jour de la configuration à l'exécution
 
-You can mutate the config values at runtime using the config service. The `config.set` updates the value within the memory, and no changes are made to the files on the disk.
+Vous pouvez modifier les valeurs de configuration à l'exécution en utilisant le service de configuration. La méthode `config.set` met à jour la valeur en mémoire, et aucun changement n'est apporté aux fichiers sur le disque.
 
 :::note
 
-The config value is mutated for the entire application, not just for a single HTTP request. This is because Node.js is not a threaded runtime, and the memory in Node.js is shared between multiple HTTP requests.
+La configuration est modifiée pour l'ensemble de l'application, pas seulement pour une seule requête HTTP. Cela est dû au fait que Node.js n'est pas un environnement d'exécution multithread, et la mémoire dans Node.js est partagée entre plusieurs requêtes HTTP.
 
 :::
 

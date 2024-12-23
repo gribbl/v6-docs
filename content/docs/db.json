@@ -33,31 +33,31 @@
     "permalink": "getting-started/installation",
     "title": "Installation",
     "contentPath": "./getting_started/installation.md",
-    "category": "Getting started"
+    "category": "Premiers pas"
   },
   {
     "permalink": "getting-started/configuration",
     "title": "Configuration",
     "contentPath": "./getting_started/configuration.md",
-    "category": "Getting started"
+    "category": "Premiers pas"
   },
   {
     "permalink": "getting-started/environment-variables",
-    "title": "Environment variables",
+    "title": "Variables d'environnement",
     "contentPath": "./getting_started/environment_variables.md",
-    "category": "Getting started"
+    "category": "Premiers pas"
   },
   {
     "permalink": "getting-started/folder-structure",
-    "title": "Folder structure",
+    "title": "Structure des dossiers",
     "contentPath": "./getting_started/folder_structure.md",
-    "category": "Getting started"
+    "category": "Premiers pas"
   },
   {
     "permalink": "getting-started/deployment",
-    "title": "Deployment",
+    "title": "Déploiement",
     "contentPath": "./getting_started/deployment.md",
-    "category": "Getting started"
+    "category": "Premiers pas"
   },
   {
     "permalink": "concepts/adonisrc-file",
